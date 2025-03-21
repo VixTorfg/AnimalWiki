@@ -107,10 +107,13 @@ public class SearchFragment extends Fragment implements AnimalAdapter.OnAnimalCl
 
                     if (root.isArray() && root.size() > 0) {
                         JsonNode animalNode = root.get(0);
-                        String taxonomy = animalNode.path("taxonomy").toString();
-                        String locations = animalNode.path("locations").toString();
-                        String characteristics = animalNode.path("characteristics").toString();
 
+                        // Extraer y formatear la información
+                        String taxonomy = formatTaxonomy(animalNode.path("taxonomy"));
+                        String locations = formatLocations(animalNode.path("locations"));
+                        String characteristics = formatCharacteristics(animalNode.path("characteristics"));
+
+                        // Pasar los datos a la actividad
                         Intent intent = new Intent(getContext(), AnimalDetailsActivity.class);
                         intent.putExtra("animalName", animalName);
                         intent.putExtra("taxonomy", taxonomy);
@@ -124,5 +127,37 @@ public class SearchFragment extends Fragment implements AnimalAdapter.OnAnimalCl
                 e.printStackTrace();
             }
         }).start();
+    }
+
+    // Métodos auxiliares para formatear los datos
+    private String formatTaxonomy(JsonNode taxonomyNode) {
+        if (taxonomyNode.isMissingNode()) return "No taxonomy information available.";
+        StringBuilder taxonomy = new StringBuilder();
+        taxonomy.append("Kingdom: ").append(taxonomyNode.path("kingdom").asText("N/A")).append("\n");
+        taxonomy.append("Physlum: ").append(taxonomyNode.path("phylum").asText("N/A")).append("\n");
+        taxonomy.append("Class: ").append(taxonomyNode.path("class").asText("N/A")).append("\n");
+        taxonomy.append("Order: ").append(taxonomyNode.path("order").asText("N/A")).append("\n");
+        taxonomy.append("Family: ").append(taxonomyNode.path("family").asText("N/A")).append("\n");
+        taxonomy.append("Genus: ").append(taxonomyNode.path("genus").asText("N/A")).append("\n");
+        taxonomy.append("Scientific Name: ").append(taxonomyNode.path("scientific_name").asText("N/A"));
+        return taxonomy.toString();
+    }
+
+    private String formatLocations(JsonNode locationsNode) {
+        if (!locationsNode.isArray() || locationsNode.size() == 0) return "No location information available.";
+        StringBuilder locations = new StringBuilder("Locations:\n");
+        for (JsonNode location : locationsNode) {
+            locations.append("- ").append(location.asText()).append("\n");
+        }
+        return locations.toString();
+    }
+
+    private String formatCharacteristics(JsonNode characteristicsNode) {
+        if (characteristicsNode.isMissingNode()) return "No characteristics information available.";
+        StringBuilder characteristics = new StringBuilder();
+        characteristicsNode.fields().forEachRemaining(field -> {
+            characteristics.append(field.getKey()).append(": ").append(field.getValue().asText("N/A")).append("\n");
+        });
+        return characteristics.toString();
     }
 }

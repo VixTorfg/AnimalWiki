@@ -6,27 +6,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
+    android:background="@color/medium_dark_gray"
     tools:context=".ui.search.SearchFragment">
 
     <EditText
         android:id="@+id/searchInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter animal name"
+        android:hint="Escriba el nombre del animal"
         android:padding="8dp"
         android:background="@android:drawable/edit_text"
         android:textSize="16sp" />
 
     <Button
         android:id="@+id/searchButton"
-        android:layout_width="match_parent"
+        android:layout_width="228dp"
         android:layout_height="wrap_content"
-        android:text="Search"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/dark_green"
         android:padding="10dp"
-        android:backgroundTint="@color/purple_500"
-        android:textColor="@android:color/white"
-        android:layout_marginTop="8dp" />
+        android:text="Buscar"
+        android:textColor="@android:color/white" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/animalRecyclerView"

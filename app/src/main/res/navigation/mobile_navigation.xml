@@ -26,7 +26,6 @@
     <fragment
         android:id="@+id/navigation_search"
         android:name="com.example.animalwiki.ui.search.SearchFragment"
-        android:label="Search"
         tools:layout="@layout/fragment_search" />
 
 </navigation>
