@@ -47,6 +47,7 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2") // Agregado
     implementation("androidx.recyclerview:recyclerview:1.3.1")
+    implementation("com.google.android.material:material:1.12.0")
     implementation(libs.activity)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

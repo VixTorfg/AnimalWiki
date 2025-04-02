@@ -18,7 +18,20 @@
         android:elevation="4dp"
         android:title="Detalles del animal"
         app:titleTextColor="@color/white"
-        android:fitsSystemWindows="true" />
+        android:fitsSystemWindows="true" >
+
+    <ImageButton
+        android:id="@+id/favoriteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_star_border"
+        android:background="?attr/selectableItemBackground"
+        android:contentDescription="Marcar como favorito"
+        android:layout_gravity="end"
+        android:padding="8dp"
+        />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
         android:id="@+id/main"

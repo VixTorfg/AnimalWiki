@@ -12,20 +12,21 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.animalwiki.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_favourites"
+        android:name="com.example.animalwiki.ui.favourites.FavouritesFragment"
+        android:label="@string/title_favourites"
+        tools:layout="@layout/fragment_favourites" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.animalwiki.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_questions"
+        android:name="com.example.animalwiki.ui.questions.QuestionsFragment"
+        android:label="@string/title_questions"
+        tools:layout="@layout/fragment_questions" />
 
     <fragment
         android:id="@+id/navigation_search"
         android:name="com.example.animalwiki.ui.search.SearchFragment"
+        android:label="@string/title_search"
         tools:layout="@layout/fragment_search" />
 
 </navigation>
