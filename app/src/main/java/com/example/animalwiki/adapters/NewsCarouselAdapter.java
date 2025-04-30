@@ -39,12 +39,7 @@ public class NewsCarouselAdapter extends RecyclerView.Adapter<NewsCarouselAdapte
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
         NewsArticle article = articles.get(position);
-        holder.title.setText(article.getTitle());
-        Glide.with(holder.image.getContext())
-                .load(article.getImage())
-                .into(holder.image);
-
-        holder.itemView.setOnClickListener(v -> listener.onItemClick(article));
+        holder.bind(article, listener);
     }
 
     @Override
@@ -60,6 +55,19 @@ public class NewsCarouselAdapter extends RecyclerView.Adapter<NewsCarouselAdapte
             super(itemView);
             image = itemView.findViewById(R.id.news_image);
             title = itemView.findViewById(R.id.news_title);
+        }
+
+        public void bind(NewsArticle article, OnItemClickListener listener) {
+            title.setText(article.getTitle());
+            Glide.with(image.getContext())
+                    .load(article.getImage())
+                    .into(image);
+
+            itemView.setOnClickListener(v -> {
+                if (listener != null) {
+                    listener.onItemClick(article);
+                }
+            });
         }
     }
 }

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_gray"
     android:fitsSystemWindows="true"
-    android:background= "@color/medium_dark_gray"
     tools:context=".ui.search.AnimalDetailsActivity">
 
     <!-- Toolbar personalizada -->
@@ -14,22 +14,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/dark_green"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:elevation="4dp"
-        android:title="Detalles del animal"
-        app:titleTextColor="@color/white"
-        android:fitsSystemWindows="true" >
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:titleTextColor="@color/white">
 
-    <ImageButton
-        android:id="@+id/favoriteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_star_border"
-        android:background="?attr/selectableItemBackground"
-        android:contentDescription="Marcar como favorito"
-        android:layout_gravity="end"
-        android:padding="8dp"
-        />
+        <ImageButton
+            android:id="@+id/favoriteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="Marcar como favorito"
+            android:padding="8dp"
+            android:src="@drawable/ic_star_border" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -50,51 +48,88 @@
                 android:id="@+id/animalName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Animal Name"
-                android:textSize="28sp"
-                android:textStyle="bold"
                 android:gravity="center"
                 android:padding="16dp"
-                android:textColor="@color/pastel_yellow" />
+                android:text="Animal Name"
+                android:textColor="@color/dark_green"
+                android:textSize="28sp"
+                android:textStyle="bold" />
 
             <!-- Taxonomía -->
+            <TextView
+                android:id="@+id/taxonomyTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Taxonomy"
+                android:textColor="@color/medium_dark_gray"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/taxonomy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Taxonomy"
-                android:textSize="22sp"
                 android:padding="8dp"
-                android:textColor="@color/regular_text" />
+                android:textColor="@color/medium_dark_gray"
+                android:textSize="18sp" />
 
             <!-- Ubicaciones -->
+            <TextView
+                android:id="@+id/locationsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Locations"
+                android:textColor="@color/medium_dark_gray"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/locations"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Locations"
-                android:textSize="22sp"
                 android:padding="8dp"
-                android:textColor="@color/regular_text" />
+                android:textColor="@color/medium_dark_gray"
+                android:textSize="18sp" />
 
             <!-- Características -->
+            <TextView
+                android:id="@+id/characteristicsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Characteristics"
+                android:textColor="@color/medium_dark_gray"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/characteristics"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Characteristics"
-                android:textSize="22sp"
                 android:padding="8dp"
-                android:textColor="@color/regular_text" />
+                android:textColor="@color/medium_dark_gray"
+                android:textSize="18sp" />
 
             <!-- Detalles adicionales -->
+            <TextView
+                android:id="@+id/animalDetailsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Details"
+                android:textColor="@color/medium_dark_gray"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/animalDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="22sp"
                 android:padding="8dp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="18sp" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

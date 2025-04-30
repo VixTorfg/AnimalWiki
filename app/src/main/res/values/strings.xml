@@ -2,6 +2,6 @@
     <string name="app_name">AnimalWiki</string>
     <string name="title_home">Home</string>
     <string name="title_favourites">Favourites</string>
-    <string name="title_questions">Questions</string>
+    <string name="title_map">Map</string>
     <string name="title_search">Searcher</string>
 </resources>

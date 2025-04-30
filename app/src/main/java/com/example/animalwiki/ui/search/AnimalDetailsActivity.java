@@ -17,6 +17,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.animalwiki.R;
+import android.text.Html;
+import android.text.Spanned;
 
 public class AnimalDetailsActivity extends AppCompatActivity {
 
@@ -40,6 +42,7 @@ public class AnimalDetailsActivity extends AppCompatActivity {
         // Habilitar el botón de retroceso
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("");
         }
 
         // Obtener referencias a las vistas
@@ -58,9 +61,9 @@ public class AnimalDetailsActivity extends AppCompatActivity {
 
         // Establecer los datos en las vistas
         animalNameTextView.setText(animalName);
-        taxonomyTextView.setText(taxonomy);
-        locationsTextView.setText(locations);
-        characteristicsTextView.setText(characteristics);
+        taxonomyTextView.setText(formatText(taxonomy));
+        locationsTextView.setText(formatText(locations));
+        characteristicsTextView.setText(formatText(characteristics));
 
         // Aplicar padding dinámico para evitar que la cabecera tape el contenido
         ViewCompat.setOnApplyWindowInsetsListener(mainLayout, (v, insets) -> {
@@ -135,5 +138,12 @@ public class AnimalDetailsActivity extends AppCompatActivity {
     private boolean isAnimalFavorite(String animalName) {
         return getSharedPreferences("favorites", MODE_PRIVATE)
                 .getBoolean(animalName, false);
+    }
+
+    private Spanned formatText(String text) {
+        // Reemplazar saltos de línea por <br> para que se muestren correctamente en el TextView
+        String formattedText = text.replace("\n", "<br>");
+        // Usar Html.fromHtml para interpretar las etiquetas HTML
+        return Html.fromHtml(formattedText, Html.FROM_HTML_MODE_LEGACY);
     }
 }

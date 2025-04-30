@@ -14,7 +14,6 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.animalwiki.adapters.NewsCarouselAdapter;
 import com.example.animalwiki.api.GNewsApi;
-import com.example.animalwiki.api.NewsService;
 import com.example.animalwiki.databinding.FragmentHomeBinding;
 import com.example.animalwiki.models.NewsArticle;
 import com.example.animalwiki.models.NewsResponse;
@@ -27,13 +26,15 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements NewsCarouselAdapter.OnItemClickListener {
 
     private FragmentHomeBinding binding;
     private HomeViewModel homeViewModel;
     private Handler carouselHandler;
     private Runnable carouselRunnable;
     private boolean isUserInteracting = false;
+    private List<NewsArticle> currentArticles;
+    private ViewPager2 carousel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
@@ -41,22 +42,19 @@ public class HomeFragment extends Fragment {
 
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
-        ViewPager2 carousel = binding.newsCarousel;
+        carousel = binding.newsCarousel;
 
         // Configurar el adaptador y observar los datos
         homeViewModel.getNewsArticles().observe(getViewLifecycleOwner(), articles -> {
             if (articles != null && !articles.isEmpty()) {
-                NewsCarouselAdapter adapter = new NewsCarouselAdapter(articles, article -> {
-                    // Mostrar detalles de la noticia seleccionada
-                    binding.newsDetailContainer.setVisibility(View.VISIBLE);
-                    binding.newsTitle.setText(article.getTitle());
-                    binding.newsDescription.setText(article.getDescription());
-                    binding.newsUrl.setText(article.getUrl());
-                });
+                currentArticles = articles;
+                NewsCarouselAdapter adapter = new NewsCarouselAdapter(articles, this);
                 carousel.setAdapter(adapter);
 
                 // Iniciar rotación automática
                 startAutoScroll(carousel, articles.size());
+                // Mostrar el detalle de la primera noticia al iniciar
+                showNewsDetails(articles.get(0));
             }
         });
 
@@ -66,6 +64,14 @@ public class HomeFragment extends Fragment {
             public void onPageScrollStateChanged(int state) {
                 super.onPageScrollStateChanged(state);
                 isUserInteracting = (state == ViewPager2.SCROLL_STATE_DRAGGING);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                if (currentArticles != null && !currentArticles.isEmpty()) {
+                    showNewsDetails(currentArticles.get(position));
+                }
             }
         });
 
@@ -117,11 +123,25 @@ public class HomeFragment extends Fragment {
         carouselHandler.postDelayed(carouselRunnable, 5000);
     }
 
+    private void showNewsDetails(NewsArticle article) {
+        binding.newsDetailContainer.setVisibility(View.VISIBLE);
+        binding.newsTitle.setText(article.getTitle());
+        binding.newsDescription.setText(article.getDescription());
+        binding.newsUrl.setText(article.getUrl());
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         if (carouselHandler != null && carouselRunnable != null) {
             carouselHandler.removeCallbacks(carouselRunnable);
         }
+    }
+
+    @Override
+    public void onItemClick(NewsArticle article) {
+        showNewsDetails(article);
+        int position = currentArticles.indexOf(article);
+        carousel.setCurrentItem(position, true);
     }
 }

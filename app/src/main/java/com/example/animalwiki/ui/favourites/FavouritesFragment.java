@@ -10,72 +10,75 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.animalwiki.R;
 import com.example.animalwiki.ui.search.AnimalDetailsActivity;
 
 import java.util.Map;
+import java.util.Set;
 
 public class FavouritesFragment extends Fragment {
 
     private LinearLayout favoritesContainer;
 
+    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-
-        View root = inflater.inflate(R.layout.fragment_favourites, container, false);
-        favoritesContainer = root.findViewById(R.id.favoritesContainer);
-
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_favourites, container, false);
+        favoritesContainer = view.findViewById(R.id.favoritesContainer);
         loadFavorites();
-
-        return root;
+        return view;
     }
 
-    // Método para cargar los favoritos desde SharedPreferences
     private void loadFavorites() {
-        favoritesContainer.removeAllViews(); // Limpiar lista previa
+        favoritesContainer.removeAllViews(); // Limpiar vistas anteriores
 
-        // Leer datos desde SharedPreferences
         Map<String, ?> favorites = requireContext()
                 .getSharedPreferences("favorites", Context.MODE_PRIVATE)
                 .getAll();
 
-        for (Map.Entry<String, ?> entry : favorites.entrySet()) {
-            String animalName = entry.getKey();
+        Set<String> favoriteAnimalNames = favorites.keySet();
 
-            // Crear dinámicamente un TextView para cada animal favorito
-            TextView textView = new TextView(getContext());
-            textView.setText(animalName);
-            textView.setTextSize(18);
-            textView.setPadding(16, 16, 16, 16);
-            textView.setBackgroundResource(R.drawable.bg_list_item);
-            textView.setClickable(true);
-            textView.setOnClickListener(v -> openAnimalDetails(animalName));
+        for (String animalName : favoriteAnimalNames) {
+            // Inflar el layout de cada elemento de la lista (item_animal.xml)
+            View favoriteItemView = LayoutInflater.from(getContext()).inflate(R.layout.item_animal, favoritesContainer, false);
 
-            favoritesContainer.addView(textView);
+            // Obtener referencia al TextView del nombre del animal
+            TextView animalNameTextView = favoriteItemView.findViewById(R.id.animalName);
+
+            // Establecer el nombre del animal
+            animalNameTextView.setText(animalName);
+
+            // Añadir un listener para abrir los detalles del animal
+            favoriteItemView.setOnClickListener(v -> {
+                openAnimalDetails(animalName);
+            });
+
+            // Añadir la vista al contenedor
+            favoritesContainer.addView(favoriteItemView);
         }
     }
 
-    // Método para abrir la pantalla de detalles
     private void openAnimalDetails(String animalName) {
-        // Recuperar los detalles del animal desde SharedPreferences
-        String taxonomy = requireContext()
+        // Obtener los detalles del animal desde SharedPreferences
+        Map<String, ?> animalDetails = requireContext()
                 .getSharedPreferences("animal_details", Context.MODE_PRIVATE)
-                .getString(animalName + "_taxonomy", "");
-        String locations = requireContext()
-                .getSharedPreferences("animal_details", Context.MODE_PRIVATE)
-                .getString(animalName + "_locations", "");
-        String characteristics = requireContext()
-                .getSharedPreferences("animal_details", Context.MODE_PRIVATE)
-                .getString(animalName + "_characteristics", "");
+                .getAll();
 
+        String taxonomy = (String) animalDetails.get(animalName + "_taxonomy");
+        String locations = (String) animalDetails.get(animalName + "_locations");
+        String characteristics = (String) animalDetails.get(animalName + "_characteristics");
+
+        // Crear un Intent para abrir AnimalDetailsActivity
         Intent intent = new Intent(getContext(), AnimalDetailsActivity.class);
         intent.putExtra("animalName", animalName);
         intent.putExtra("taxonomy", taxonomy);
         intent.putExtra("locations", locations);
         intent.putExtra("characteristics", characteristics);
+
+        // Iniciar la actividad
         startActivity(intent);
     }
 }

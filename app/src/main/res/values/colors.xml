@@ -12,4 +12,5 @@
     <color name="dark_green">#388E3C</color>
     <color name="pastel_yellow">#FFF9A825</color>
     <color name="medium_dark_gray">#FF616161</color>
+    <color name="light_gray">#EEEEEE</color>
 </resources>

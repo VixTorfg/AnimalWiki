@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -10,7 +12,7 @@
         android:id="@+id/news_carousel"
         android:layout_width="match_parent"
         android:layout_height="383dp"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="32dp" />
 
     <!-- Detalles de la noticia seleccionada con ScrollView -->
     <ScrollView
@@ -22,30 +24,37 @@
             android:id="@+id/news_detail_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/light_gray"
             android:orientation="vertical"
+            android:padding="16dp"
             android:visibility="gone">
 
             <TextView
                 android:id="@+id/news_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:textColor="@color/black"
+                android:textSize="20sp"
                 android:textStyle="bold"
-                android:textSize="18sp"
-                android:layout_marginBottom="8dp" />
+                tools:text="Titulo de la noticia" />
 
             <TextView
                 android:id="@+id/news_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/black"
                 android:textSize="16sp"
-                android:layout_marginBottom="8dp" />
+                tools:text="Descripcion de la noticia" />
 
             <TextView
                 android:id="@+id/news_url"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/holo_blue_dark"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                tools:text="https://www.google.com" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

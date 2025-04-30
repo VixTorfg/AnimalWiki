@@ -18,10 +18,10 @@
         tools:layout="@layout/fragment_favourites" />
 
     <fragment
-        android:id="@+id/navigation_questions"
-        android:name="com.example.animalwiki.ui.questions.QuestionsFragment"
-        android:label="@string/title_questions"
-        tools:layout="@layout/fragment_questions" />
+        android:id="@+id/navigation_map"
+        android:name="com.example.animalwiki.ui.map.MapFragment"
+        android:label="@string/title_map"
+        tools:layout="@layout/fragment_map" />
 
     <fragment
         android:id="@+id/navigation_search"

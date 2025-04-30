@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@color/medium_dark_gray"
+    android:background="@color/light_gray"
     tools:context=".ui.search.SearchFragment">
 
     <EditText
